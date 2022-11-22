@@ -5,7 +5,7 @@ export default function(cookieConf) {
     route: '/:key+',
     get(ctx) {
       const {key} = ctx.params
-      ctx.body = Cookie.get(key)
+      ctx.body = JSON.parse(Cookie.get(key))
     },
     put(ctx) {
       const {key} = ctx.params
@@ -13,11 +13,11 @@ export default function(cookieConf) {
       if (input === '') {
         Cookie.remove(key)
       } else {
-        ctx.body = Cookie.set(key, input, {
+        ctx.body = Cookie.set(key, JSON.stringify(input), {
           ...cookieConf,
           ...cookieOptions,
         })
       }
     },
-  }
+  };
 }
